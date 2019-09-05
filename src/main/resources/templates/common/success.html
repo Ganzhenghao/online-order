@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>用户注册</title>
+    </head>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/iconfont.css}" />
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
+
+    <body>
+        <div th:include="common/top :: top"></div>
+        <!--后台显示错误提示-->
+        <div id="errorContent" class="alert alert-danger" style="display:none">
+            <a class="close" data-dismiss="alert">&times;</a>
+            <strong id="errorMsg">错误！</strong>
+        </div>
+        <!--注册成功模块-->
+        <div style="background-color: #F6F6F6;height: 600px;">
+            <div class="container">
+                <div class="row" style="margin-top: 100px;">
+                    <div class="col-md-offset-3 col-md-6" style="background-color: white;height: 100px;border: 5px solid #F2F2F2;padding-top: 20px;">
+                        <div class="col-md-1">
+                            <img src="/img/true.png"/>
+                        </div>
+                        <div class="col-md-11">
+                            <p th:text="${successVo.desc}"></p>
+                            <a th:text="${successVo.linkDesc}" th:href="${successVo.link}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div style="background-color: #FF7600;color: white;height: 180px;">
+            <div class="container">
+                <div class="row" style="margin-top: 50px;">
+                    <address class="text-center">
+                        <strong>版权所有</strong> © 2018-2020 123456789 蜀ICP备12345678<br>
+                        <strong>技术支持：</strong>XXXXXXXXXX网络中心<br>
+                        <strong>学院地址：</strong>四川省绵阳市XXXXXXXXX  <strong>邮编：</strong>621000<br>
+                        <strong>电话：</strong>0816-123456  <strong>管理信箱：</strong>123456789@ccswust.edu.cn<br>
+                    </address>
+                </div>
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+            var link = [[${successVo.link}]];
+            setTimeout(function(){
+                window.location.href = link;
+            }, 3000);
+        </script>
+    </body>
+</html>

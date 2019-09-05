@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1567428427480'); /* IE9 */
+  src: url('iconfont.eot?t=1567428427480#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAOwAAsAAAAAB5gAAANiAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqDBIJsATYCJAMMCwgABCAFhG0HNBuwBsguISfbUZyc4KisjAaRd3/IEL4O1IxFUO332bO7H9HdhVDGc3lAFRnW5O7igBwqBM9GoTBsxPtf/+pvFlCVlUbVim8W0EMy48zJy6pzBRXV+kO1oOp3uv+bf8wmFf841LzngQS+OJA4khsa2cEGHIQprz7DAjcAhEe9dKpELYTC//9e1UwP4LyWbJf3swatMS2UE8BwgAI01u4ka0EK5F1qd0s8Jq/84nECbYuKoD1SWx+EKOi4QJx12GQIqemUkeLQFOo9S4u4xWumy+mZAjfT34//yhJNklpGp+493qhBza/2d7FLVS0KR7KdBdYqMrYChTjWazvKP49t5a8dqAPGs+uKkLYKipCKQ239ov94iaijhV2wEeKJX61gEfwqL0gggzpaOAe8A/J0t6K2wuAYGtrqXfxAA2PySx5M+QD69vftQ8IstVB49NXbaOYjDyL2tzKrk7Vh36i/ouzC27fj66l+dz5mRT39nOZ//0uuGnUPsHnwtbF/yJn24TeKsaiIsLF5H6Ui4xuN3WcRWn61dgbU0iW/Jr186/H8vPuglkNDcm1uuqTCz0SQ1lCnH6zudqOhLdBiCv3Y/t9ea3QcDYnpAcSQ6oqGUKfM28OD9nYFkW4yf/pu+N/5wtffc5Sg4hqo7p+2UoTtlXq1NlIkfSWxryNNSpOOPXjytDK0B42OAmVcGkdZtwZJQUuX/JTDN4eAoFb58lv6awNLqjdTANUDNnNpmriY13PP7/obB7ZfNhldMQv4eZhawVNdLIBzgObN2IOfI0E2lFBG9bn4YiGOk9l2gbeOAWY7VUBdYz+Wa2foQkLTrISkYQGyprX4Qt4KNR3boK5pO7RtYV3dMcH5i9LCZqsEwtAlSPq+QDb0HF/I36Fm7g/UDSND2+GI37JjfZwKq+dEFkTDyjx2qMxLuVGEZcU9xDbtlnlVllIHCNcdQWw2mJpJK/ESvsUMfcZmEYJiypkHS+Q04nYz7OPMSVRhsAvhKzMaad83GVTmgTC7cYRMIDSYYh7moGK8qGothLV+vgdhM81NxkfqBsIDCE7n6BwzMzAh8Fa1F1X3Kq/oZthYCAKFURzjgUnEQrhZjMF8/YOcCJVgYF8Q8Slj1JpRrNpwvNbzfNugje6TI0WOopxnGvHXpxkAAAA=') format('woff2'),
+  url('iconfont.woff?t=1567428427480') format('woff'),
+  url('iconfont.ttf?t=1567428427480') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1567428427480#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wode:before {
+  content: "\e60d";
+}
+
+.icon-suo:before {
+  content: "\e620";
+}
+

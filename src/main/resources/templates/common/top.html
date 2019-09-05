@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>头部</title>
+</head>
+<body>
+    <div th:fragment="top">
+        <div style="background: #FF7600;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="/index/1/16"><img src="/img/logo.png" width="300px"/></a>
+                    </div>
+                    <div class="col-md-offset-5 col-md-3">
+                        <td th:switch = "${session.user != null }" >
+                            <div th:case="false" style="padding-top: 10px;padding-left: 150px;">
+                                <a href="/user/login" style="color: white;">登录</a>
+                                <a href="/user/register" style="color: white;margin-left: 20px;">注册</a>
+                            </div>
+                            <div th:case="true" style="padding-top: 10px;padding-left: 150px;">
+                                &nbsp;&nbsp;<a class="dropdown-toggle" data-toggle="dropdown" style="color: white;cursor: pointer;">【<span th:text="${session.user.nickname}"></span>】</a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="/user/info">个人资料</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="/user/indent/1/5">订单</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="/user/logout">退出登录</a>
+                                    </li>
+                                    <td th:switch = "${session.merchantStatus == 1}">
+                                        <li th:case="true" role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="/merchant/product/1/5" style="color: #FF7600">商品管理</a>
+                                        </li>
+                                    </td>
+                                    <td th:switch = "${session.merchantStatus == 1}">
+                                        <li th:case="true" role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="/merchant/indent/1/5" style="color: #FF7600">订单管理</a>
+                                        </li>
+                                    </td>
+                                </ul>
+                            </div>
+                        </td>
+
+                    </div>
+                    <div class="input-group pull-right" style="padding-top: 20px;">
+                        <input id="search" type="text" class="form-control" placeholder="请输入商家">
+                        <a id="search_btn" class="btn input-group-addon" style="background: white;">搜索</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

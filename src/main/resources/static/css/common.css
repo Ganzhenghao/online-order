@@ -1,0 +1,38 @@
+/* ============== 颜色 ================ */
+.wt-cl {color: white;}
+.wt-bg-cl {background-color: white;}
+.gr-cl {color: gray;}
+.gr-bg-cl {background-color: gray}
+.bl-cl {color: black}
+.bl-bg-cl {background-color: black}
+/* ============== text-align ================ */
+.t-a-l {text-align: left;}
+.t-a-c {text-align: center;}
+.t-a-r {text-align: right;}
+/* ============== padding-top ================ */
+.p-t-1 {padding-top: 1px;}
+.p-t-2 {padding-top: 2px;}
+.p-t-3 {padding-top: 3px;}
+.p-t-4 {padding-top: 4px;}
+.p-t-5 {padding-top: 5px;}
+/* ============== margin-top ================ */
+.m-t-1 {margin-top: 1px}
+.m-t-2 {margin-top: 2px}
+.m-t-3 {margin-top: 3px}
+.m-t-4 {margin-top: 4px}
+.m-t-5 {margin-top: 5px}
+.m-t-6 {margin-top: 6px}
+/* ============== font-size ================ */
+.f-s-10 {font-size: 10px}
+.f-s-11 {font-size: 11px}
+.f-s-12 {font-size: 12px}
+.f-s-13 {font-size: 13px}
+.f-s-14 {font-size: 14px}
+.f-s-15 {font-size: 15px}
+.f-s-16 {font-size: 16px}
+.f-s-17 {font-size: 17px}
+.f-s-18 {font-size: 18px}
+.f-s-19 {font-size: 19px}
+.f-s-20 {font-size: 20px}
+/* ============== cursor ================ */
+.pointer {cursor: pointer}

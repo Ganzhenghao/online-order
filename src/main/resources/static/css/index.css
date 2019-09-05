@@ -1,0 +1,25 @@
+.main-bg-color {
+    background-color: #FF7600;
+}
+.content {
+    margin-top: 50px;
+}
+.product-content {
+    background: white;
+    padding: 30px 0px 0px 20px;
+    font-size: 16px;
+    margin-top: 15px;
+    color: #898989;
+}
+.index-title {
+    background: white;
+    height: 50px;
+    margin-top: 20px;
+    padding: 10px 0px 0px 30px;
+    font-size: 16px;
+    color: #898989;
+}
+.product-text {
+    font-size: 5px;
+    float: left;
+}

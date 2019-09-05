@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>订单</title>
+    </head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/iconfont.css}" />
+
+
+    <body>
+        <div th:include="common/top :: top"></div>
+        <div class="container">
+            <div class="row" style="border: 1px solid #CCCCCC;margin-top: 50px;height: 40px;">
+                <div style="width: 80px;background-color: #FF7600;color: white;height: 100%;margin: 5px 0px 0px 15px;text-align: center;padding-top: 5px;">
+                    订单
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px;border: 1px solid #CCCCCC;" th:each="indentOutputDto,status : ${pageVo.data}">
+                <div class="col-md-2">
+                    <img th:src="${indentOutputDto.merchantImg}" width="160px" height="100px" style="margin-top: 10px;"/>
+                </div>
+                <div class="col-md-10">
+                    <p style="font-size: 15px;margin-top: 10px;"><strong th:text="${indentOutputDto.merchantName}"></strong>
+                        <td th:switch = "${indentOutputDto.indentStatus}">
+                            <span th:case="1" style="font-size: 10px;"> (等待卖家确认)</span>
+                            <span th:case="2" style="font-size: 10px;"> (等待骑手接单)</span>
+                            <span th:case="3" style="font-size: 10px;"> (派送中)</span>
+                            <span th:case="4" style="font-size: 10px;"> (完结)</span>
+                            <span th:case="5" style="font-size: 10px;"> (拒绝接单)</span>
+                        </td>
+                    </p>
+                    <span style="margin-left: 20px;" th:each="indentProductOutputDto,status1 : ${indentOutputDto.indentProductOutputDtos}">
+                        <span th:text="${indentProductOutputDto.productName}"></span> x <span th:text="${indentProductOutputDto.number}"></span>
+                    </span>
+                    <hr />
+                    <span class="pull-left">收货地址：<span th:text="${indentOutputDto.address}"></span></span><span style="margin-left: 50px;">收货人：<span th:text="${indentOutputDto.nickname}"></span></span>
+                    <span class="pull-right"><strong>总价：￥<span th:text="${indentOutputDto.totalAmount}"></span></strong></span>
+                </div>
+            </div>
+            <div>
+                <ul class="pagination pagination-sm pull-right">
+                    <td th:switch = "${pageVo.pages > 6}">
+                        <li th:case="true"><a th:href="'/user/indent/1/5/'" style="color: #333333;margin-left: 10px;">...1</a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page > 1}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page - 1} + '/5/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&laquo;</a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 5 > 0}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page - 5} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 5"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 4 > 0}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page - 4} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 4"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 3 > 0}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page - 3} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 3"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 2 > 0}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page - 2} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 2"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 1 > 0}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page - 1} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 1"></a></li>
+                    </td>
+                    <li><a href="#" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page}"></a></li>
+                    <td th:switch = "${pageVo.page  + 1 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page + 1} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 1"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  + 2 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page + 2} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 2"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  + 3 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page + 3} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 3"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  + 4 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page + 4} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 4"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.pages - pageVo.page > 5}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.pages} + '/5/'" style="color: #333333;margin-left: 10px;">...<span th:text="${pageVo.pages}"></span></a></li>
+                    </td>
+                    <li><a style="color: #333333;margin-left: 10px;"><input id="jump" type="text" style="width: 30px;height: 18px;"/> / <span th:text="${pageVo.pages} + '页'"></span></a></li>
+                    <td th:switch = "${pageVo.page < pageVo.pages}">
+                        <li th:case="true"><a th:href="'/user/indent/' + ${pageVo.page + 1} + '/5/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&raquo;</a></li>
+                    </td>
+                </ul>
+            </div>
+        </div>
+        <!--底部-->
+        <div th:include="common/bottom :: bottom"></div>
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+        <script type="text/javascript">
+            $(document).keyup(function(event){
+                if(event.keyCode ==13){
+                    var jump = $("#jump").val();
+                    window.location.href = "/user/indent/" + jump + "/5"
+                }
+            });
+        </script>
+    </body>
+</html>

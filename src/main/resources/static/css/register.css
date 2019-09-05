@@ -1,0 +1,30 @@
+.register-btn {
+    background-color: #FF7600;
+    color: white;
+}
+.content {
+    background: #F5F5F5;
+    margin-top: 50px;
+}
+.content .container {
+    padding: 30px 0px 30px 0px;
+}
+
+.register-content {
+    padding: 0px 50px 100px 50px;
+    background-color: white;
+}
+.input-label {
+    padding-left: 20px;
+}
+.vertical-moulding {
+    float:left;
+    width: 1px;
+    height: 300px;
+    background: #F1F1F1;
+}
+.login-advise {
+    color: #666666;
+    font-size: 20px;
+    margin: 50px;
+}

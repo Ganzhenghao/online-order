@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>商品管理</title>
+    </head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/iconfont.css}" />
+
+
+    <body style="background-color: white">
+        <div th:include="common/top :: top"></div>
+        <div class="container">
+            <div id="successMsg" class="alert alert-success alert-dismissable" style="display: none">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">
+                    &times;
+                </button>操作成功！
+            </div>
+            <div id="errorMsg" class="alert alert-danger alert-dismissable" style="display: none">
+                <button type="button" class="close" data-dismiss="alert"
+                        aria-hidden="true">
+                    &times;
+                </button>操作失败！
+            </div>
+            <div class="row" style="border: 1px solid #CCCCCC;margin-top: 50px;height: 40px;color: white;">
+                <div style="width: 80px;background-color: #FF7600;height: 100%;margin: 5px 0px 0px 15px;text-align: center;padding-top: 5px;">
+                    商品管理
+                </div>
+                <button data-toggle="modal" data-target="#add_product" class="btn pull-right" style="margin: -40px 0px 0px 15px;border-radius: 0;background: #FF7600;">添加</button>
+            </div>
+            <div th:id="${product.productId}" th:each="product,status : ${pageVo.data}" class="row" style="margin-top: 20px;border: 1px solid #CCCCCC;">
+                <div class="col-md-2">
+                    <img th:src="${product.productImg}" width="160px" height="100px" style="margin-top: 10px;"/>
+                </div>
+                <div class="col-md-10">
+                    <p style="font-size: 15px;margin-top: 10px;"><strong th:text="${product.productName}"></strong></p>
+                    <td th:switch = "${product.productDesc == null}">
+                        <span th:case="false" th:text="${product.productDesc}"></span>
+                        <span th:case="true">暂无简介</span>
+                    </td>
+                    <hr />
+                    <a th:onclick="setDeleteProduct([[${product.productId}]])" data-toggle="modal" data-target="#delete_model" class="btn btn-sm btn-danger pull-right" style="margin: -10px 0px 0px 10px;">删除</a>
+                    <button th:attr="productId=${product.productId},productName=${product.productName},productPrice=${product.productPrice},productDesc=${product.productDesc}"
+                            class="btn btn-sm btn-primary pull-right alter-btn" style="margin: -10px 0px 0px 10px;color: white;" data-toggle="modal" data-target="#alter_model">修改</button>
+                    <span class="pull-right"><strong>价格：<span th:text="${product.productPrice}"></span>元</strong></span>
+                </div>
+            </div>
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="delete_model" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">是否删除该商品</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="close_btn" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button id="delete_btn" type="button" class="btn btn-danger">确认删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div>
+                <ul class="pagination pagination-sm pull-right">
+                    <td th:switch = "${pageVo.pages > 6}">
+                        <li th:case="true"><a th:href="'/merchant/product/1/5/'" style="color: #333333;margin-left: 10px;">...1</a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page > 1}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page - 1} + '/5/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&laquo;</a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 5 > 0}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page - 5} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 5"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 4 > 0}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page - 4} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 4"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 3 > 0}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page - 3} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 3"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 2 > 0}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page - 2} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 2"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  - 1 > 0}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page - 1} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 1"></a></li>
+                    </td>
+                    <li><a href="#" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page}"></a></li>
+                    <td th:switch = "${pageVo.page  + 1 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page + 1} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 1"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  + 2 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page + 2} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 2"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  + 3 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page + 3} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 3"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.page  + 4 <= pageVo.pages}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page + 4} + '/5/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 4"></a></li>
+                    </td>
+                    <td th:switch = "${pageVo.pages - pageVo.page > 5}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.pages} + '/5/'" style="color: #333333;margin-left: 10px;">...<span th:text="${pageVo.pages}"></span></a></li>
+                    </td>
+                    <li><a style="color: #333333;margin-left: 10px;"><input id="jump" type="text" style="width: 30px;height: 18px;"/> / <span th:text="${pageVo.pages} + '页'"></span></a></li>
+                    <td th:switch = "${pageVo.page < pageVo.pages}">
+                        <li th:case="true"><a th:href="'/merchant/product/' + ${pageVo.page + 1} + '/5/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&raquo;</a></li>
+                    </td>
+                </ul>
+            </div>
+            <!-- 模态框（添加商品） -->
+            <div class="modal" id="add_product" style="margin-top: 200px">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius: 0px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <p style="font-size: 17px;" class="modal-title"><strong>添加商品</strong></p>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/product/add" method="post" id="add_product_form" class="form-horizontal" role="form" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="file" name="productImg">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-md-2 control-label">商品名称</label>
+                                    <div class="col-md-10">
+                                        <input name="productName" type="text" class="form-control" id="lastname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-md-2 control-label">商品价格</label>
+                                    <div class="col-md-10">
+                                        <input name="productPrice" type="text" class="form-control input-group" id="lastname">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">简介</label>
+                                    <div class="col-md-10">
+                                        <textarea id="description" name="productDesc" class="form-control" rows="5" style="resize: none" maxlength="100"></textarea>
+                                        <p class="pull-right" style="margin-top: 10px;">剩余可填写长度：<span id="leftLength"></span></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button id="add_product_btn" type="button" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模态框（添加商品） -->
+            <div class="modal" id="alter_model" style="margin-top: 200px">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="border-radius: 0px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <p style="font-size: 17px;" class="modal-title"><strong>修改商品</strong></p>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/product/update" method="post" id="alter_product_form" class="form-horizontal" role="form" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input id="productId" name="productId" type="text" hidden="hidden">
+                                        <input type="file" name="productImg"><span>（如果不修改图片，请不要选择）</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-md-2 control-label">商品名称</label>
+                                    <div class="col-md-10">
+                                        <input id="productName" name="productName" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-md-2 control-label">商品价格</label>
+                                    <div class="col-md-10">
+                                        <input id="productPrice" name="productPrice" type="text" class="form-control input-group">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">简介</label>
+                                    <div class="col-md-10">
+                                        <textarea id="description1" name="productDesc" class="form-control" rows="5" style="resize: none" maxlength="100"></textarea>
+                                        <p class="pull-right" style="margin-top: 10px;">剩余可填写长度：<span id="leftLength1"></span></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                            </button>
+                            <button id="alter_product_btn" type="button" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div th:include="common/bottom :: bottom"></div>
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+        <script type="text/javascript">
+            var deleteProductId = "";
+            var alterProductId = "";
+            var alterProductName = "";
+            var alterProductDesc = "";
+            var alterProductPrice = "";
+            $(document).keyup(function(event){
+                if(event.keyCode ==13){
+                    var jump = $("#jump").val();
+                    window.location.href = "/merchant/product/" + jump + "/5"
+                }
+            });
+            $(function () {
+                // 设置初始文本长度
+                var description = $("#description").text();
+                var maxLength = 100;
+                $("#leftLength").text(maxLength - description.length);
+                $("#description").bind('input propertychange',function () {
+                    var description = $("#description").val();
+                    $("#leftLength").text(maxLength - description.length);
+                });
+                // 设置初始文本长度
+                var description1 = $("#description1").text();
+                $("#leftLength1").text(maxLength - description1.length);
+                $("#description1").bind('input propertychange',function () {
+                    var description1 = $("#description1").val();
+                    $("#leftLength1").text(maxLength - description1.length);
+                });
+                $(".option").click(function () {
+                    $(".option").removeClass("active");
+                    $(this).addClass("active");
+                });
+
+                $("#add_product_btn").click(function () {
+                    $("#add_product_form").submit();
+                });
+
+                $("#delete_btn").click(function () {
+                    deleteProduct();
+                    $("#close_btn").trigger("click");
+                });
+                $(".alter-btn").click(function () {
+                    alterProductId = $(this).attr("productId");
+                    $("#productId").val(alterProductId);
+                    alterProductName = $(this).attr("productName");
+                    $("#productName").val(alterProductName);
+                    alterProductDesc = $(this).attr("productDesc");
+                    $("#description1").val(alterProductDesc);
+                    alterProductPrice = $(this).attr("productPrice");
+                    $("#productPrice").val(alterProductPrice);
+                });
+                $("#alter_product_btn").click(function () {
+                    $("#alter_product_form").submit();
+                });
+            });
+
+            function setDeleteProduct(productId) {
+                deleteProductId = productId;
+            }
+
+            function deleteProduct() {
+                $.ajax({
+                    type:"get",
+                    url:"/product/delete/" + deleteProductId,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success:function(data) {
+                        if (data.status == 200) {
+                            $("#successMsg").css("display", "block");
+                            $("#" + deleteProductId).html("");
+                            setTimeout(function(){
+                                $("#successMsg").css("display", "none");
+                            }, 3000);
+                        } else {
+                            $("#errorMsg").css("display", "block");
+                            setTimeout(function(){
+                                $("#errorMsg").css("display", "none");
+                            }, 3000);
+                        }
+                    }
+                });
+            }
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>忘记密码</title>
+    </head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/iconfont.css}" />
+
+    <body>
+        <div th:include="common/top :: top"></div>
+        <div style="background: #F5F5F5; margin-top: 50px">
+            <div class="container" style="height: 600px;padding-top: 30px;">
+                <div class="row" style="background: white;">
+                    <div class="row" style="padding-left: 50px;">
+                        <h3><strong>忘记密码</strong></h3>
+                    </div>
+                    <hr />
+                    <div class="row" style="padding-left: 50px;padding-bottom: 100px;">
+                        <div class="col-md-6">
+                            <form id="forget_form" class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align: left;padding-left: 20px;">用户名</label>
+                                    <div class="col-md-6">
+                                        <input id="username" name="username" type="text" class="form-control" placeholder="请输入用户名">
+                                    </div>
+                                    <div class="col-md-4" style="padding-top: 5px;"><p id="username_tips" style="color: gray;"></p></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align: left;padding-left: 20px;">Email</label>
+                                    <div class="col-md-6">
+                                        <input id="email" name="email" type="email" class="form-control" placeholder="请输入邮箱">
+                                    </div>
+                                    <div class="col-md-4" style="padding-top: 5px;"><p id="email_tips" style="color: gray;"></p></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align: left;padding-left: 20px;">密码</label>
+                                    <div class="col-md-6">
+                                        <input id="password" name="password" type="password" class="form-control" placeholder="请输入密码">
+                                    </div>
+                                    <div class="col-md-4" style="padding-top: 5px;"><p id="password_tips" style="color: gray;"></p></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" style="text-align: left;padding-left: 20px;">确认密码</label>
+                                    <div class="col-md-6">
+                                        <input id="verify_password" type="password" class="form-control" placeholder="请确认密码">
+                                    </div>
+                                    <div class="col-md-4" style="padding-top: 5px;"><p id="verify_password_tips" style="color: gray;"></p></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-6">
+                                        <a id="forget_btn" type="submit" class="btn btn-default btn-block" style="background: #FF7600;color: white;">提交</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="float:left;width: 1px;height: 300px; background: #F1F1F1;"></div>
+                            <p style="color: #666666;font-size: 20px;margin: 50px;">想起密码了？<a href="/user/login">直接登录</a></p>
+                            <p style="color: #666666;font-size: 20px;margin: 50px;">还没有个账号？<a href="/user/register">点击注册</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div th:include="common/bottom :: bottom"></div>
+
+
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+        <script type="text/javascript">
+            $(function() {
+                $("#username").blur(function() {
+                    var username = $("#username").val();
+                    if (!(username.length > 5 && username.length < 17)) {
+                        alert("请输入6-16位用户名!");
+                    }
+                });
+                $("#password").blur(function() {
+                    var password  = $("#password").val();
+                    if (!(password.length > 5 && password.length < 17)) {
+                        alert("请输入6-16位密码!");
+                    }
+                });
+                $("#verify_password").blur(function() {
+                    var password  = $("#password").val();
+                    var verify_password = $("#verify_password").val();
+                    if (verify_password != verify_password) {
+                        alert("两次密码输入不一致!");
+                    }
+                });
+                $("#email").blur(function() {
+                    var email = $("#email").val();
+                    if(!legalEmail(email)) {
+                        alert("邮箱格式不正确!")
+                    }
+                });
+                $("#forget_btn").click(function(){
+                    var username = $("#username").val();
+                    var password = $("#password").val();
+                    var verify_password = $("#verify_password").val();
+                    var email = $("#email").val();
+                    if (!(username.length > 5 && username.length < 17)) {
+                        $("#username").focus();
+                    } else if (!(password.length > 5 && password.length < 17)) {
+                        $("#password").focus();
+                    } else if (verify_password != verify_password) {
+                        $("#verify_password").focus();
+                    } else if (!legalEmail(email)) {
+                        $("#email").focus();
+                    } else {
+                        $.ajax({
+                            type:"post",
+                            url:"/user/forget",
+                            data:$("#forget_form").serialize(),
+                            dataType: "json",
+                            success:function(data) {
+                                if (data.status == 200) {
+                                    window.location.href="/success/2";
+                                } else {
+                                    if (data.desc != null) {
+                                        alert(data.desc);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            // 验证邮箱是否合法
+            function legalEmail(email) {
+                var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+                return reg.test(email) ? true : false;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>店家详情</title>
+    </head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/merchantDetail.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/iconfont.css}" />
+    <body class="main-bg-color">
+        <div th:include="common/top :: top"></div>
+        <div class="container content">
+            <div class="row merchant-detail-title">
+                <p class="merchant-detail-title-text">
+                    <img class="img-circle" th:src="${merchant.merchantImg}" width="30px" height="30px" style="margin-right: 10px;" />
+                    <strong><h4 class="bl-cl" th:text="${merchant.merchantName}"></h4></strong>
+                </p>
+            </div>
+            <div class="row product-content">
+                <div class="col-md-3" th:each="product,status : ${pageVo.data}">
+                    <img th:src="${product.productImg}" width="230px" height="150px"/>
+                    <p class="m-t-6" style="color: #060A15;" th:text="${product.productName}"></p>
+                    <img style="margin-top: -17px;" src="/img/grade5.png"/>
+                    <br />
+                    <p style="font-size: 5px;float: left;">价格:￥<span th:text="${product.productPrice}"></span></p>
+                    <p style="font-size: 5px;float:left;color: #CB8A8E;margin-left: 60px;">出售<span th:text="${product.productSell}"></span>单</p>
+                    <span style="margin-left: 40px;"></span>
+                    <a th:attr="productId=${product.productId},productName=${product.productName},productPrice=${product.productPrice}" class="reduce pointer" style="display: none;">
+                        <img src="/img/减.png" width="15px" height="15px" style="margin-top: -3px;"/>
+                    </a>
+                    <span><strong th:id="${product.productId} + '_number'" style="display: none;"></strong></span>
+                    <a th:attr="productId=${product.productId},productName=${product.productName},productPrice=${product.productPrice}" class="add" style="cursor: pointer">
+                        <img src="/img/加.png" width="15px" height="15px" style="margin-top: -3px;"/>
+                    </a>
+                    <hr class="bl-cl" />
+                </div>
+                <div class="col-md-12">
+                    <ul class="pagination pagination-sm pull-right">
+                        <td th:switch = "${pageVo.pages > 6}">
+                            <li th:case="true"><a th:href="'/index/1/16/'" style="color: #333333;margin-left: 10px;">...1</a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page > 1}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page - 1} + '/16/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&laquo;</a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 5 > 0}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page - 5} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 5"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 4 > 0}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page - 4} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 4"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 3 > 0}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page - 3} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 3"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 2 > 0}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page - 2} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 2"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 1 > 0}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page - 1} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 1"></a></li>
+                        </td>
+                        <li><a href="#" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page}"></a></li>
+                        <td th:switch = "${pageVo.page  + 1 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page + 1} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 1"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  + 2 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page + 2} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 2"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  + 3 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page + 3} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 3"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  + 4 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page + 4} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 4"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.pages - pageVo.page > 5}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.pages} + '/16/'" style="color: #333333;margin-left: 10px;">...<span th:text="${pageVo.pages}"></span></a></li>
+                        </td>
+                        <li><a style="color: #333333;margin-left: 10px;"><input th:attr="merchantId=${merchant.merchantId}" id="jump" type="text" style="width: 30px;height: 18px;"/> / <span th:text="${pageVo.pages} + '页'"></span></a></li>
+                        <td th:switch = "${pageVo.page < pageVo.pages}">
+                            <li th:case="true"><a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/' + ${pageVo.page + 1} + '/16/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&raquo;</a></li>
+                        </td>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-md-4" style="margin-top: 50px;">
+                        <table class="table table-responsive">
+                            <h2>购物车</h2>
+                            <thead>
+                            <tr>
+                                <th>商品</th>
+                                <th>数量</th>
+                                <th>总价</th>
+                            </tr>
+                            </thead>
+                            <tbody id="cart_content">
+                                <tr>
+                                    <td>配送：<span th:text="${merchant.deliveryCost}"></span>元</td>
+                                    <td>总计：<span id="total_amount"></span>元</td>
+                                    <td><input id="pay" type="button" class="btn btn-block btn-primary" value="支付" style="background: #FF7600;border: 0px;" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div th:include="common/bottom :: bottom"></div>
+        <script type="text/javascript" th:src="@{/js/jquery.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
+        <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+        <script type="text/javascript"  th:inline="javascript">
+            $(document).keyup(function(event){
+                if(event.keyCode == 13){
+                    var jump = $("#jump").val();
+                    var merchantId = $("#jump").attr("merchantId");
+                    if (jump != null && jump != undefined && jump != "")
+                        window.location.href = "/user/merchantDetail/" + merchantId + "/" + jump + "/16";
+                }
+            });
+            var cart = {};
+            var productMap = {};
+            var totalAmount = [[${merchant.deliveryCost}]];
+            $(function () {
+                $(".reduce").click(function () {
+                    var user = [[${session.user}]];
+                    if (user == null) {
+                        alert("请先进行登录!");
+                        return;
+                    }
+                    var address = [[${session.user.address}]];
+                    if (address == null) {
+                        alert("请先填写收货地址!");
+                        return;
+                    }
+                    var sessionMerchant = [[${session.merchantId}]];
+                    var currentMerchant = [[${merchant.merchantId}]];
+                    if (sessionMerchant == currentMerchant) {
+                        alert("无法购买自己的店铺的商品!");
+                        return;
+                    }
+                    var productId = $(this).attr("productId");
+                    var productName = $(this).attr("productName");
+                    var productPrice = $(this).attr("productPrice");
+                    if (cart[productId] != null) {
+                        var number = cart[productId][1];
+                        if (number == 1) {
+                            $("#" + productId + "_number").css("display", "none");
+                            $("#" + productId + "_number").text(0);
+                            $('#' + productId).html("");
+                            $(this).css("display", "none");
+                        }
+                        if (number > 1) {
+                            $("#" + productId + "_number").text(Number($("#" + productId + "_number").text()) - 1);
+                            var html = "<tr id=" + productId + ">\n" +
+                                "<td>" + productName + "</td>\n" +
+                                "<td>" + cart[productId][1] + "</td>\n" +
+                                "<td>" + (productPrice * cart[productId][1]) + "元</td>\n" +
+                                "</tr>";
+                            $('#' + productId).html("");
+                            $("#cart_content").after(html);
+                        }
+                        if (number >= 1) {
+                            productMap[productId] -= 1;
+                            cart[productId][1] -= 1;
+                        }
+                    }
+                    var number = cart[productId][1];
+                    totalAmount -= Number(productPrice);
+                    $("#total_amount").text(totalAmount);
+                });
+                $(".add").click(function () {
+                    var user = [[${session.user}]];
+                    if (user == null) {
+                        alert("请先进行登录!");
+                        return;
+                    }
+                    var address = [[${session.user.address}]];
+                    if (address == null) {
+                        alert("请先填写收货地址!");
+                        return;
+                    }
+                    var sessionMerchant = [[${session.merchantId}]];
+                    var currentMerchant = [[${merchant.merchantId}]];
+                    if (sessionMerchant == currentMerchant) {
+                        alert("无法购买自己的店铺的商品!");
+                        return;
+                    }
+                    var index = $(".add").index($(this));
+                    var productId = $(this).attr("productId");
+                    var productName = $(this).attr("productName");
+                    var productPrice = $(this).attr("productPrice");
+                    if (cart[productId] == null) {
+                        $("#" + productId + "_number").text(1);
+                        $("#" + productId + "_number").css("display", "");
+                        $(".reduce").eq(index).css("display", "");
+                        productMap[productId] = 1;
+                        cart[productId] = [productName, 1, productPrice];
+                        var html = "<tr id=" + productId + ">\n" +
+                            "<td>" + productName + "</td>\n" +
+                            "<td>1</td>\n" +
+                            "<td>" + productPrice + "元</td>\n" +
+                            "</tr>";
+                        $("#cart_content").after(html);
+                    } else {
+                        var number = cart[productId][1];
+                        if (number == 0) {
+                            $("#" + productId + "_number").css("display", "");
+                            $(".reduce").eq(index).css("display", "");
+                        }
+                        $("#" + productId + "_number").text(Number($("#" + productId + "_number").text()) + 1);
+                        productMap[productId] += 1;
+                        cart[productId][1] += 1;
+                        var html = "<tr id=" + productId + ">\n" +
+                            "<td>" + productName + "</td>\n" +
+                            "<td>" + cart[productId][1] + "</td>\n" +
+                            "<td>" + (productPrice * cart[productId][1]) + "元</td>\n" +
+                            "</tr>";
+                        $('#' + productId).html("");
+                        $("#cart_content").after(html);
+                    }
+                    totalAmount += Number(productPrice);
+                    $("#total_amount").text(totalAmount);
+                });
+                $("#pay").click(function () {
+                    var user = [[${session.user}]];
+                    if (user == null) {
+                        alert("请先进行登录!");
+                        return;
+                    }
+                    var address = [[${session.user.address}]];
+                    if (address == null) {
+                        alert("请先填写收货地址!");
+                        return;
+                    }
+                    var sessionMerchant = [[${session.merchantId}]];
+                    var currentMerchant = [[${merchant.merchantId}]];
+                    if (sessionMerchant == currentMerchant) {
+                        alert("无法购买自己的店铺的商品!");
+                        return;
+                    }
+                    var minConsume = [[${merchant.minConsume}]];
+                    if (totalAmount >= minConsume) {
+                        $.ajax({
+                            type:"post",
+                            url:"/user/pay",
+                            data: JSON.stringify({"productMap": productMap, "merchantId": [[${merchant.merchantId}]]}),
+                            dataType: "json",
+                            contentType: "application/json",
+                            success:function(data) {
+                                if (data.status == 200) {
+                                    window.location.href = "/success/4";
+                                } else {
+                                    if (data.desc != null) {
+                                        alert(data.desc);
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        alert("最低消费" + minConsume + "元，当前消费" + totalAmount + "元!")
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>首页</title>
+    </head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" th:href="@{/fonts/iconfont.css}" />
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}" ></script>
+    <body class="main-bg-color">
+        <div th:include="common/top :: top"></div>
+        <div class="container">
+            <div class="row index-title">
+                <h4 class="bl-cl"><strong>商家列表</strong></h4>
+            </div>
+            <div class="row product-content">
+                <div class="col-md-3" th:each="merchant,status : ${pageVo.data}">
+                    <a th:href="'/user/merchantDetail/' + ${merchant.merchantId} + '/1/16'"><img th:src="${merchant.merchantImg}" width="230px" height="150px"/></a>
+                    <p class="m-t-6" style="color: #060A15;">
+                        <img class="img-circle" th:src="${merchant.merchantImg}" width="30px" height="30px"/>
+                        <span th:text="${merchant.merchantName}"></span>
+                    </p>
+                    <p class="product-text">起送:￥<span th:text="${merchant.minConsume}"></span></p>
+                    <p class="product-text" style="margin-left: 40px;">配送费:￥<span th:text="${merchant.deliveryCost}"></span></p>
+                    <p class="product-text" style="color: #CB8A8E;margin-left: 40px;">出售<span th:text="${merchant.sell}"></span>单</p><br />
+                    <hr class="bl-cl" />
+                </div>
+                <div class="col-md-12">
+                    <ul class="pagination pagination-sm pull-right">
+                        <td th:switch = "${pageVo.pages > 6}">
+                            <li th:case="true"><a th:href="'/index/1/16/'" style="color: #333333;margin-left: 10px;">...1</a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page > 1}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page - 1} + '/16/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&laquo;</a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 5 > 0}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page - 5} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 5"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 4 > 0}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page - 4} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 4"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 3 > 0}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page - 3} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 3"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 2 > 0}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page - 2} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 2"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  - 1 > 0}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page - 1} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} - 1"></a></li>
+                        </td>
+                        <li><a href="#" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page}"></a></li>
+                        <td th:switch = "${pageVo.page  + 1 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page + 1} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 1"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  + 2 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page + 2} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 2"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  + 3 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page + 3} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 3"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.page  + 4 <= pageVo.pages}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page + 4} + '/16/'" style="color: #333333;margin-left: 10px;" th:text="${pageVo.page} + 4"></a></li>
+                        </td>
+                        <td th:switch = "${pageVo.pages - pageVo.page > 5}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.pages} + '/16/'" style="color: #333333;margin-left: 10px;">...<span th:text="${pageVo.pages}"></span></a></li>
+                        </td>
+                        <li><a style="color: #333333;margin-left: 10px;"><input id="jump" type="text" style="width: 30px;height: 18px;"/> / <span th:text="${pageVo.pages} + '页'"></span></a></li>
+                        <td th:switch = "${pageVo.page < pageVo.pages}">
+                            <li th:case="true"><a th:href="'/index/' + ${pageVo.page + 1} + '/16/'" style="color: #333333;margin-left: 10px;border-radius: 0px;">&raquo;</a></li>
+                        </td>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div th:include="common/bottom :: bottom"></div>
+
+        <script type="text/javascript" th:src="@{/js/common.js}" ></script>
+        <script type="text/javascript">
+            $(document).keyup(function(event){
+                if(event.keyCode == 13){
+                    var jump = $("#jump").val();
+                    window.location.href = "/index/" + jump + "/16"
+                }
+            });
+        </script>
+    </body>
+</html>

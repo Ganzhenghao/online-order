@@ -1,0 +1,10 @@
+.content {
+    margin-top: 50px;
+}
+.login-form {
+    padding: 50px 30px 20px 30px;
+}
+.login-btn {
+    background-color: #FF7600;
+    color: white;
+}

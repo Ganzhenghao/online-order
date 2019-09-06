@@ -7,10 +7,10 @@ import lombok.Getter;
  */
 @Getter
 public enum MerchantStatusEnum {
-
     WAIT_REVIEW(0, "等待审核"),
     REVIEW_SUCCESS(1, "审核通过"),
-    REVIRE_FAILURE(2, "审核失败")
+    REVIRE_FAILURE(2, "审核失败"),
+    DISABLE(3, "禁用")
     ;
 
     /** 状态码 */

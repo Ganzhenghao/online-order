@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin-User-List</title>
+</head>
+<body>
+<h1>This is User List!</h1>
+<h3><a href="/admin/index">返回Index页面</a></h3>
+<h3><a href="/admin/findAllMerchant">返回商家页面</a></h3>
+<h3><a href="/admin/findAllUser">返回用户页面</a></h3>
+<h3><a href="/admin/findAllProduct">返回产品页面</a></h3>
+<table>
+    <tr align="center">
+        <td>用户Id</td>
+        <td>用户名</td>
+        <td>密码</td>
+        <td>昵称</td>
+        <td>E-Mail</td>
+        <td>电话号码</td>
+        <td>地址</td>
+        <td>状态</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="u : ${pageInfo.list}" align="center">
+        <td th:text="${u.userId}"></td>
+        <td th:text="${u.username}"></td>
+        <td th:text="${u.password}"></td>
+        <td th:text="${u.nickname}"></td>
+        <td th:text="${u.email}"></td>
+        <td th:text="${u.phone}"></td>
+        <td th:text="${u.address}"></td>
+        <td th:text="${u.status}"></td>
+        <td th:switch="${u.status}">
+            <sapn th:case="1"><a th:href="'/admin/userStatus/2/' + ${u.userId}">禁用</a></sapn>
+            <sapn th:case="2"><a th:href="'/admin/userStatus/1/' + ${u.userId}">启用</a></sapn>
+        </td>
+    </tr>
+</table>
+
+<p><a href="/admin/findAllUser">首页</a>
+    <a th:href="'/admin/findAllUser?page='+${pageInfo.prePage}">上一页</a>
+    <a th:href="'/admin/findAllUser?page='+${pageInfo.nextPage}">下一页</a>
+    <a th:href="'/admin/findAllUser?page='+${pageInfo.pages}">尾页</a>
+
+</p>
+<p> 总记录条数: <span th:text="${pageInfo.total}"></span>
+    当前页记录数: <span th:text="${pageInfo.size}"></span>
+    当前页数: <span th:text="${pageInfo.pageNum}"></span>
+    总页数: <span th:text="${pageInfo.pages}"></span>
+</p>
+
+
+</body>
+</html>

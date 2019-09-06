@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin-Merchant-List</title>
+</head>
+<body>
+<h1>This is Merchant List!</h1>
+<h3><a href="/admin/index">返回Index页面</a></h3>
+<h3><a href="/admin/findAllMerchant">返回商家页面</a></h3>
+<h3><a href="/admin/findAllUser">返回用户页面</a></h3>
+<h3><a href="/admin/findAllProduct">返回产品页面</a></h3>
+<table>
+    <tr align="center">
+        <td>商家Id</td>
+        <td>用户Id</td>
+        <td>商家状态</td>
+        <td>商店名称</td>
+        <td>商家评级</td>
+        <td>商家图片</td>
+        <td>最低消费</td>
+        <td>配送费</td>
+        <td>销售量</td>
+        <td>证明文件</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="m : ${pageInfo.list}" align="center">
+        <td th:text="${m.merchantId}"></td>
+        <td th:text="${m.userId}"></td>
+
+        <td th:switch="${m.status}">
+        <span th:case="1" style="color: #5bc0de">等待审核</span>
+        <sapn th:case="2" style="color: green">审核通过</sapn>
+        <span th:case="3" style="color: red;">审核失败</span>
+        <span th:case="4" style="color:#985f0d;">商家已被禁用</span>
+        </td>
+        <td th:text="${m.merchantName}"></td>
+        <td th:text="${m.merchantGrade}"></td>
+        <td><img th:src=" ${m.merchantImg} " alt="not found" th:width="10px" th:height="10px"></td>
+        <td th:text="${m.minConsume}"></td>
+        <td th:text="${m.deliveryCost}"></td>
+        <td th:text="${m.sell}"></td>
+        <td><a th:href="@{${m.credentials}}">下载文件</a></td>
+
+        <td th:switch="${m.status}">
+            <span th:case="1"><a th:href="'/admin/status/2/' + ${m.merchantId}">通过审核</a>
+                <a th:href="'/admin/status/3/' + ${m.merchantId}">审核失败</a></span>
+            <sapn th:case="2"><a th:href="'/admin/status/4/' + ${m.merchantId}">禁用此商家</a></sapn>
+            <sapn th:case="3">等待商家重新审核</sapn>
+            <sapn th:case="4"><a th:href="'/admin/status/2/' + ${m.merchantId}">解除禁用</a></sapn>
+        </td>
+    </tr>
+</table>
+<p><a href="/admin/findAllMerchant">首页</a>
+    <a th:href="'/admin/findAllMerchant?page='+${pageInfo.prePage}">上一页</a>
+    <a th:href="'/admin/findAllMerchant?page='+${pageInfo.nextPage}">下一页</a>
+    <a th:href="'/admin/findAllMerchant?page='+${pageInfo.pages}">尾页</a>
+
+</p>
+<p> 总记录条数: <span th:text="${pageInfo.total}"></span>
+    当前页记录数: <span th:text="${pageInfo.size}"></span>
+    当前页数: <span th:text="${pageInfo.pageNum}"></span>
+    总页数: <span th:text="${pageInfo.pages}"></span>
+</p>
+
+
+</body>
+</html>

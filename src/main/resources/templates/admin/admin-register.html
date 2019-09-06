@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin-Register</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $(function () {
+            var username = $('#username');
+            var password = $('#password');
+            var repassword = $('#repassword');
+            var submit = $('#submit');
+            var flag = false;
+            username.keyup(function () {
+                if (username.val().length<5){$('#sp1').css("color","red").html("用户名长度大与5位"); flag = false;}
+                else{$('#sp1').css("color","green").html("用户名格式正确");}
+            });
+            password.keyup(function () {
+                if (password.val().length<5){$('#sp2').css("color","red").html("密码长度大于6位"); flag = false;}
+                else{$('#sp2').css("color","green").html("密码格式正确");}
+            });
+            repassword.keyup(function () {
+                if (password.val() !==  repassword.val()){$('#sp3').html("两次密码不同");flag = false;}
+                else{$('#sp3').css("color","green").html("两次密码相同");}
+            });
+            submit.click(function () {
+                flag = true;
+                username.trigger();
+                password.trigger();
+                if (!flag){return false;}
+            });
+
+        });
+    </script>
+</head>
+<body>
+<form action="/admin/saveAdmin" method="post">
+    <p>管理员账号:<input type="text" name="username" id="username"><span id="sp1"></span></p>
+    <p>管理员密码:<input type="text" name="password" id="password"><span id="sp2"></span> </p>
+    <p>确认管理员密码:<input type="text" name="repassword" id="repassword"><span id="sp3"></span> </p>
+    <p><input type="submit" value="注册" id = "submit"></p>
+</form>
+</body>
+</html>

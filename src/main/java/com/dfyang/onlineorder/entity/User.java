@@ -1,5 +1,6 @@
 package com.dfyang.onlineorder.entity;
 
+import com.dfyang.onlineorder.enums.MerchantStatusEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,5 +44,7 @@ public class User {
 
     /** 地址 */
     private String address;
+
+    private Integer status;
 
 }

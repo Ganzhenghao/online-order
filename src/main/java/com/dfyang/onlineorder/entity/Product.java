@@ -24,4 +24,6 @@ public class Product {
 
     private Integer productSell;
 
+    private Integer productStatus;
+
 }
